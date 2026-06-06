@@ -1,6 +1,6 @@
 import Expense from "../models/expense.model.js";
 
-// GET /api/manager/pending
+// GET PENDING EXPENSES:   GET /api/manager/pending --------------------------------------------------------------------------------------------------------------------
 const getPendingExpenses = async (req, res) => {
   try {
     const expenses = await Expense.find({ status: "submitted" })
@@ -20,7 +20,7 @@ const getPendingExpenses = async (req, res) => {
   }
 };
 
-// PATCH /api/manager/:expenseId/status
+// UPDATE EXPENSE STATUS:  PATCH /api/manager/:expenseId/status -------------------------------------------------------------------------------------------------------
 const updateExpenseStatus = async (req, res) => {
   try {
     const { expenseId } = req.params;
@@ -79,7 +79,7 @@ const updateExpenseStatus = async (req, res) => {
   }
 };
 
-// GET /api/manager/history
+// GET EXPENSE HISTROY:  GET /api/manager/history ----------------------------------------------------------------------------------------------------------------------
 const getExpenseHistory = async (req, res) => {
   try {
     const { status, user, search } = req.query;

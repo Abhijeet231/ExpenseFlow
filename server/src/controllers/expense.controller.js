@@ -1,7 +1,7 @@
 import Expense from "../models/expense.model.js";
 import { uploadOnCloudinary, deleteFromCloudinary } from "../utils/cloudinary.js";
 
-// POST /api/expenses
+// CREATE EXPENSE :  POST /api/expenses ---------------------------------------------------------------------------------------------------------------------------------
 const createExpense = async (req, res) => {
   try {
     const { date, category, amount, description, status } = req.body;
@@ -60,7 +60,7 @@ const createExpense = async (req, res) => {
   }
 };
 
-// GET /api/expenses/my
+// GET EXPENSES : /api/expenses/my
 const getMyExpenses = async (req, res) => {
   try {
     const { status, search, category } = req.query;
@@ -86,7 +86,7 @@ const getMyExpenses = async (req, res) => {
   }
 };
 
-// GET /api/expenses/:expenseId
+// GET EXPENSE BY ID : /api/expenses/:expenseId -------------------------------------------------------------------------------------------------------------------------
 const getExpenseById = async (req, res) => {
   try {
     const { expenseId } = req.params;
@@ -120,7 +120,7 @@ const getExpenseById = async (req, res) => {
   }
 };
 
-// PATCH /api/expenses/:expenseId
+// UPDATE AN EXPENSE :  PATCH /api/expenses/:expenseId ------------------------------------------------------------------------------------------------------------------
 const updateExpense = async (req, res) => {
   try {
     const { expenseId } = req.params;
@@ -135,6 +135,7 @@ const updateExpense = async (req, res) => {
       });
     }
 
+
     if (expense.userId.toString() !== req.user._id.toString()) {
       return res.status(403).json({
         success: false,
@@ -142,6 +143,7 @@ const updateExpense = async (req, res) => {
       });
     }
 
+    // Only expenses which are not submited yet can be updated.
     if (expense.status !== "draft") {
       return res.status(400).json({
         success: false,
@@ -188,7 +190,7 @@ const updateExpense = async (req, res) => {
   }
 };
 
-// DELETE /api/expenses/:expenseId
+// DELETE EXPENSE:  DELETE /api/expenses/:expenseId ---------------------------------------------------------------------------------------------------------------------
 const deleteExpense = async (req, res) => {
   try {
     const { expenseId } = req.params;
