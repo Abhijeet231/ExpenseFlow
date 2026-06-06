@@ -7,6 +7,11 @@ export const validate = (schema, source = "body") => (req, res, next) => {
       errors: result.error.flatten().fieldErrors,
     });
   }
-  req[source] = result.data; 
+
+  
+  if (source === "body") {
+    req.body = result.data;
+  }
+
   next();
 };

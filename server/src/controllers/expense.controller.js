@@ -155,6 +155,7 @@ const updateExpense = async (req, res) => {
     if (category) expense.category = category;
     if (amount !== undefined) expense.amount = amount;
     if (description) expense.description = description;
+    if (req.body.status) expense.status = req.body.status;
 
     if (req.file) {
       if (expense.receiptUrl?.public_id) {

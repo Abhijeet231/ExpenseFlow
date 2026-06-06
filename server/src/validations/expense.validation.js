@@ -1,9 +1,10 @@
 import { z } from "zod";
 
 export const createExpenseSchema = z.object({
+  // createExpenseSchema and updateExpenseSchema
   date: z
     .string({ required_error: "Expense date is required" })
-    .datetime({ message: "Date must be a valid ISO datetime string" }),
+    .min(1, "Date is required"),
 
   category: z
     .string({ required_error: "Category is required" })
@@ -29,30 +30,33 @@ export const createExpenseSchema = z.object({
     .default("draft"),
 });
 
-export const updateExpenseSchema = z
-  .object({
-    date: z
-      .string()
-      .datetime({ message: "Date must be a valid ISO datetime string" })
-      .optional(),
+export const updateExpenseSchema = z.object({
+  // createExpenseSchema and updateExpenseSchema
+  date: z
+    .string({ required_error: "Expense date is required" })
+    .min(1, "Date is required")
+    .optional(),
 
-    category: z.string().trim().min(1, "Category cannot be empty").optional(),
+  category: z.string().trim().min(1, "Category cannot be empty").optional(),
 
-    amount: z
-      .number({ invalid_type_error: "Amount must be a number" })
-      .min(0, "Amount cannot be negative")
-      .optional(),
+  amount: z.coerce
+    .number({ invalid_type_error: "Amount must be a number" })
+    .min(0, "Amount cannot be negative")
+    .optional(),
 
-    description: z
-      .string()
-      .trim()
-      .min(1, "Description cannot be empty")
-      .max(500, "Description cannot exceed 500 characters")
-      .optional(),
-  })
-  .refine((data) => Object.keys(data).length > 0, {
-    message: "At least one field must be provided to update",
-  });
+  description: z
+    .string()
+    .trim()
+    .min(1, "Description cannot be empty")
+    .max(500, "Description cannot exceed 500 characters")
+    .optional(),
+
+  status: z
+    .enum(["draft", "submitted"], {
+      message: "Status must be draft or submitted",
+    })
+    .optional(),
+});
 
 export const expenseQuerySchema = z.object({
   status: z
