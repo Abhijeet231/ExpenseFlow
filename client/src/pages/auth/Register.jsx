@@ -47,7 +47,7 @@ export default function Register() {
       // manually set auth state since register also logs in
       await login({ email: data.email, password: data.password });
       toast.success("Account created successfully!");
-      navigate(data.role === "manager" ? "/manager/dashboard" : "/dashboard");
+      navigate(data.role === "manager" ? "/manager" : "/dashboard");
     } catch (error) {
       const message = error?.response?.data?.message || "Registration failed. Please try again.";
       toast.error(message);

@@ -42,7 +42,7 @@ export default function Login() {
       setLoading(true);
       const res = await login(data);
       toast.success("Welcome back!");
-      navigate(res.user.role === "manager" ? "/manager/dashboard" : "/dashboard");
+      navigate(res.user.role === "manager" ? "/manager" : "/dashboard");
     } catch (error) {
       const message = error?.response?.data?.message || "Login failed. Please try again.";
       toast.error(message);
