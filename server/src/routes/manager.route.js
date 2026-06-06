@@ -7,7 +7,7 @@ import {
 import { managerHistoryQuerySchema, updateExpenseStatusSchema } from "../validations/manager.validation.js";
 import { validate } from "../middleware/validate.middleware.js";
 import verifyJWT from "../middleware/auth.middleware.js";
-import { verifyRoles } from "../middleware/verifyRoles.middleware.js";
+import { verifyRoles } from "../middleware/verifyRoles.js";
 
 const router = Router();
 

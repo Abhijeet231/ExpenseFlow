@@ -10,12 +10,10 @@ export const createExpenseSchema = z.object({
     .trim()
     .min(1, "Category cannot be empty"),
 
-  amount: z
-    .number({
-      required_error: "Amount is required",
-      invalid_type_error: "Amount must be a number",
-    })
-    .min(0, "Amount cannot be negative"),
+  amount: z.coerce
+    .number({ invalid_type_error: "Amount must be a number" })
+    .min(0, "Amount cannot be negative")
+    .optional(),
 
   description: z
     .string({ required_error: "Description is required" })
