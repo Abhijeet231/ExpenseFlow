@@ -7,6 +7,6 @@ export const validate = (schema, source = "body") => (req, res, next) => {
       errors: result.error.flatten().fieldErrors,
     });
   }
-  req[source] = result.data; // replaces raw input with parsed/coerced data
+  req[source] = result.data; 
   next();
 };
