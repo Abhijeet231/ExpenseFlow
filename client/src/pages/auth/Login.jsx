@@ -24,7 +24,7 @@ const InputField = ({ label, id, error, ...props }) => (
   </div>
 );
 
-export default function LoginPage() {
+export default function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);

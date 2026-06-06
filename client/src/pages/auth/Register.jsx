@@ -25,7 +25,7 @@ const InputField = ({ label, id, error, ...props }) => (
   </div>
 );
 
-export default function RegisterPage() {
+export default function Register() {
   const { login } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
