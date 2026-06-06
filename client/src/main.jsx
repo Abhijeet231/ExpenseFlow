@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
 import { Toaster } from 'sonner'
 import { AuthProvider } from './context/AuthContext.jsx'
-import router from './router/router.jsx'
+import router from './routes/AppRouter.jsx'
 import './index.css'
 
 createRoot(document.getElementById('root')).render(

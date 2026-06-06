@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { registerSchema } from "../schemas/auth.schemas.js";
-import { registerUser } from "../services/auth.service.js";
-import { useAuth } from "../context/AuthContext.jsx";
+import { registerSchema } from "../../validation/auth.validation.js"
+import { registerUser } from "../../service/auth.service.js";
+import { useAuth } from "../../context/AuthContext.jsx";
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 import { toast } from "sonner";
