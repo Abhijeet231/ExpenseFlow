@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { registerSchema } from "../../validation/auth.validation.js"
+import { registerSchema } from "../../validation/auth.validation.js";
 import { registerUser } from "../../service/auth.service.js";
 import { useAuth } from "../../context/AuthContext.jsx";
 import { useNavigate, Link } from "react-router-dom";
@@ -43,11 +43,10 @@ export default function Register() {
     try {
       setLoading(true);
       const { confirmPassword, ...payload } = data;
-      const res = await registerUser(payload);
-      // manually set auth state since register also logs in
+      await registerUser(payload);
       await login({ email: data.email, password: data.password });
       toast.success("Account created successfully!");
-      navigate(data.role === "manager" ? "/manager" : "/dashboard");
+      navigate("/dashboard");
     } catch (error) {
       const message = error?.response?.data?.message || "Registration failed. Please try again.";
       toast.error(message);
@@ -120,31 +119,8 @@ export default function Register() {
               {...register("confirmPassword")}
             />
 
-            {/* Role selector */}
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold uppercase tracking-widest text-gray-500">
-                I am a
-              </label>
-              <div className="grid grid-cols-2 gap-3">
-                {["user", "manager"].map((role) => (
-                  <label
-                    key={role}
-                    className="relative flex items-center gap-3 border border-gray-200 px-4 py-3 cursor-pointer has-checked:border-gray-900 has-checked:bg-gray-900 transition-all group"
-                  >
-                    <input
-                      type="radio"
-                      value={role}
-                      className="sr-only"
-                      {...register("role")}
-                    />
-                    <span className="text-sm font-medium capitalize text-gray-600 group-has-checked:text-white transition-colors">
-                      {role === "user" ? "Employee" : "Manager"}
-                    </span>
-                  </label>
-                ))}
-              </div>
-              {errors.role && <p className="text-xs text-red-500">{errors.role.message}</p>}
-            </div>
+            {/* role is hardcoded as "user" — hidden from UI */}
+            <input type="hidden" value="user" {...register("role")} />
 
             <button
               type="submit"
